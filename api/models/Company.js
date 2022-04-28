@@ -1,17 +1,19 @@
 /**
- * User.js
+ * Company.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const bcrypt = require('bcrypt-nodejs');
-
-
 module.exports = {
+
 	attributes: {
 		updatedAt: false,
 		createdAt: false,
+		name: {
+			type: 'string',
+			required: true,
+		},
 		email: {
 			type: 'string',
 			unique: true,
@@ -22,34 +24,33 @@ module.exports = {
 			type: 'string',
 			required: true,
 			minLength: 6,
+			encrypt: true,
 		},
-		username: {
-			type: 'string',
-			unique: true,
-			allowNull: true,
+		isVerifiedByAdmin: {
+			type: 'boolean',
+			defaultsTo: false,
 		},
-		avatar: {
-			type: 'string',
-			allowNull: true,
-		},
-		bio: {
+		logo: {
 			type: 'string',
 			allowNull: true,
-			columnType: 'mediumText',
+		},
+		country: {
+			type: 'string',
+		},
+		city: {
+			type: 'string',
+		},
+		state: {
+			type: 'string',
+		},
+		about: {
+			type: 'string',
+			allowNull: true,
+			columnType: 'longText',
 		},
 	},
-
-	beforeUpdate: (values, next) => {
-		CipherService.hashPassword(values)
-		next()
-	},
-	beforeCreate: (values, next) => {
-		CipherService.hashPassword(values);
-		next();
-	},
-
 	customToJSON: function() {
-		return _.omit(this, ['password'])
+		return _.omit(this, ['password', 'email'])
 	}
 
 };

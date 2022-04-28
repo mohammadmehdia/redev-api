@@ -10,5 +10,12 @@
 
 module.exports.routes = {
 
+	/**
+	 *  Auth
+	 */
+	'POST /auth/login': 'AuthController.login',
+	'POST /auth/register': 'AuthController.register',
+	'POST /auth/logout': 'AuthController.logout',
+
 
 };
