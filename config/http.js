@@ -1,3 +1,4 @@
+const passport = require('passport');
 /**
  * HTTP Server Settings
  * (sails.config.http)
@@ -8,6 +9,10 @@
  * For more information on configuration, check out:
  * https://sailsjs.com/config/http
  */
+
+const passportInitFn = () => require('passport').initialize({})
+
+const passportSessionFn = () => require('passport').session({})
 
 module.exports.http = {
 
@@ -57,15 +62,9 @@ module.exports.http = {
 		//   return middlewareFn;
 		// })(),
 
-		passportInit    : (function (){
-			const passport = require('passport');
-			return passport.initialize(undefined);
-		})(),
+		passportInit: passportInitFn(),
 
-		passportSession : (function (){
-			const passport = require('passport');
-			return passport.session(undefined);
-		})()
+		passportSession : passportSessionFn(),
 
 	},
 
