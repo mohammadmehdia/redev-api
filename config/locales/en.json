@@ -1,3 +1,4 @@
 {
-	"E_INVALID_EMAIL": "Invalid Email Address"
+	"E_INVALID_EMAIL": "Invalid Email Address",
+	"E_INVALID_CREDENTIALS": "Invalid Credentials"
 }

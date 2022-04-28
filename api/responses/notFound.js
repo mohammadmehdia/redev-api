@@ -13,8 +13,7 @@ module.exports = function (data, code, message, root) {
 		data: data || {}
 	}, root);
 
-	this.req._sails.log.silly('Sent (404 NOT FOUND)\n', response);
+	//this.req._sails.log.silly('Sent (404 NOT FOUND)\n', response);
 
-	this.res.status(404);
-	this.res.json(response);
+	return this.res.status(404).json(response);
 };

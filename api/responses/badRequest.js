@@ -13,8 +13,7 @@ module.exports = function (data, code, message, root) {
 		data: data || {}
 	}, root);
 
-	this.req._sails.log.silly('Sent (400 BAD REQUEST)\n', response);
+	//this.req._sails.log.silly('Sent (400 BAD REQUEST)\n', response);
 
-	this.res.status(400);
-	this.res.json(response);
+	this.res.status(400).json(response);
 };

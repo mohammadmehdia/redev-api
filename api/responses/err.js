@@ -26,42 +26,12 @@
  * ```
  */
 
-module.exports = function err(data, status = 400) {
-	// Get access to `req` and `res`
-	const req = this.req;
-	const res = this.res;
-
-	// Define the status code to send in the response.
-	let statusCode = status ?? 400;
-
-	// If no data was provided, use res.sendStatus().
-	if (data === undefined) {
-		return res.sendStatus(statusCode, {
-			error: true,
-			message: "",
-		});
+module.exports = function err(data, status = 400, code = undefined) {
+	const response = {
+		code: code || "ERROR",
+		message: data === undefined ? "" : (typeof(data) === 'string') ? data :
+					(_.isError(data) && !_.isFunction(data.toJSON) && process.env.NODE_ENV !== 'production') ? data.stack : "",
+		data: data || {},
 	}
-	if(typeof(data) === 'string') {
-		return res.status(statusCode).send({
-			error:true,
-			message: data,
-		})
-	}
-
-	if (_.isError(data) && !_.isFunction(data.toJSON)) {
-		if (process.env.NODE_ENV === 'production') {
-			return res.status(statusCode).send({error: true, message: ""});
-		} else {
-			return res.status(statusCode).send({error: true, message: data.stack});
-		}
-	}
-
-	// if(_.isObject(data)) {
-	// 	data.error = true
-	// 	if(_.isFunction(data.toJSON)) {
-	// 		const obj = {error: true, ...data.toJSON() ?? {}}
-	// 		return res.status(statusCode).send(obj)
-	// 	}
-	// }
-	return res.status(statusCode).send({error: true, ...data});
+	return this.res.status(status || 400).json(response)
 };

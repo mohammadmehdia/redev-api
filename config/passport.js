@@ -62,7 +62,7 @@ function _onJwtStrategyAuth(payload, next) {
 	return next(null, user, {});
 }
 
-passport.use( 'local', new LocalStrategy(LOCAL_STRATEGY_CONFIG, _onLocalStrategyAuth));
+//passport.use( 'local', new LocalStrategy(LOCAL_STRATEGY_CONFIG, _onLocalStrategyAuth));
 passport.use( 'jwt', new JwtStrategy(JWT_STRATEGY_CONFIG, _onJwtStrategyAuth));
 
 module.exports.jwtSettings = {
