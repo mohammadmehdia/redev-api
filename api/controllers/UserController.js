@@ -11,6 +11,13 @@ const {i18n} = require('sails');
 
 module.exports = {
 
+	getUserById: async (req, res) => {
+		const id = parseInt(req.param('id', 0))
+		const user = await User.findOne({id: id})
+		return res.json(user)
+	}
+
+	/*
 	create: (req, res) => {
 		const body = req.body
 		EmailAddresses.validate({string: body['email'] ?? ""}).exec({
@@ -26,5 +33,6 @@ module.exports = {
 			}
 		})
 	}
+	 */
 
 };

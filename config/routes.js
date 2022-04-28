@@ -9,7 +9,6 @@
  */
 
 module.exports.routes = {
-
 	/**
 	 *  Auth
 	 */
@@ -18,5 +17,9 @@ module.exports.routes = {
 	'POST /auth/logout': 'AuthController.logout',
 	'POST /auth/refresh': 'AuthController.refreshToken',
 
+	/**
+	 * User
+	 */
+	'GET /user/:id': 'UserController.getUserById'
 
 };
