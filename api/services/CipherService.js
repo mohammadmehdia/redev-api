@@ -19,15 +19,15 @@ module.exports = {
 	 * Compare user password hash with unhashed password
 	 * @returns boolean indicating a match
 	 */
-	comparePassword: function(password, user){
-		return bcrypt.compareSync(password, user.password);
+	comparePassword: function(password, user) {
+		return user && user.password && bcrypt.compareSync(password, user.password);
 	},
 
 	/**
 	 * Create a token based on the passed user
 	 * @param user
 	 */
-	createToken: function(user)
+	createAccessToken: function(user)
 	{
 		return jwt.sign({
 				user: user,
@@ -40,5 +40,31 @@ module.exports = {
 				audience: sails.config.jwtSettings.audience
 			}
 		);
+	},
+	/**
+	 * Create a refresh token based on the passed user
+	 * @param user
+	 */
+	createRefreshToken: function(user) {
+		return jwt.sign({
+				user: user,
+			},
+			sails.config.jwtSettings.refresh.secret,
+			{
+				algorithm: sails.config.jwtSettings.algorithm,
+				expiresIn: sails.config.jwtSettings.refresh.expiresIn,
+				issuer: sails.config.jwtSettings.issuer,
+				audience: sails.config.jwtSettings.audience
+			}
+		);
+	},
+	/**
+	 * Create tokens
+	 * @param user
+	 */
+	createToken: function(user) {
+		const refreshToken = this.createRefreshToken(user)
+		const token = this.createAccessToken(user)
+		return {token, refreshToken}
 	}
 };

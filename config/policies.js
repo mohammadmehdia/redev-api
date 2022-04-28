@@ -18,11 +18,11 @@ module.exports.policies = {
 	 ***************************************************************************/
 
 	// '*': true,
-	'*': ['isAuth'],
+	'*': ['isAuthenticatedPolicy'],
 
 	AuthController: {
 		'*': true,
-		'refreshToken': ['isAuth']
+		'refreshToken': ['refreshTokenPolicy'],
 	}
 
 };
