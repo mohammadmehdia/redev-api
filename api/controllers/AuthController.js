@@ -40,8 +40,15 @@ module.exports = {
 					return res.badRequest(null, "E_INVALID_CREDENTIALS", message)
 				}
 			})
-			.catch(res.badRequest)
-
+			.catch(err => {
+				console.error(err)
+				const message = i18n('E_INVALID_CREDENTIALS')
+				return res.badRequest(null, "E_INVALID_CREDENTIALS", message)
+			})
 	},
+
+	refreshToken: (req, res) => {
+		return res.ok(req.user)
+	}
 
 };

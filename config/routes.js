@@ -16,6 +16,7 @@ module.exports.routes = {
 	'POST /auth/login': 'AuthController.login',
 	'POST /auth/register': 'AuthController.register',
 	'POST /auth/logout': 'AuthController.logout',
+	'POST /auth/refresh': 'AuthController.refreshToken',
 
 
 };

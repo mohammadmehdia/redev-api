@@ -6,7 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-const EXPIRES_IN_MINUTES = 60 * 24;
+const EXPIRES_IN_SECONDS = 30;
 const SECRET = process.env.tokenSecret || '4ukI0uIVnB3iI1yxj646fVXSE3ZVk4doZgz6fTbNg7jO41EAtl20J5F7Trtwe7OM';
 const ALGORITHM = 'HS256';
 const ISSUER = 'redev.at';
@@ -66,7 +66,7 @@ function _onJwtStrategyAuth(payload, next) {
 passport.use( 'jwt', new JwtStrategy(JWT_STRATEGY_CONFIG, _onJwtStrategyAuth));
 
 module.exports.jwtSettings = {
-	expiresInMinutes: EXPIRES_IN_MINUTES,
+	expiresIn: EXPIRES_IN_SECONDS,
 	secret: SECRET,
 	algorithm : ALGORITHM,
 	issuer : ISSUER,
