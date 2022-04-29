@@ -14,6 +14,8 @@ module.exports = {
 	getUserById: async (req, res) => {
 		const id = parseInt(req.param('id', 0))
 		const user = await User.findOne({id: id})
+			.populate('experience', {sort: 'startAt DESC'})
+
 		return res.json(user)
 	}
 

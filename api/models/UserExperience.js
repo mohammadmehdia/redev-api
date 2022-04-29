@@ -15,7 +15,7 @@ module.exports = {
 			type: 'string',
 			required: true,
 		},
-		company: {
+		companyName: {
 			type: 'string',
 			allowNull: true,
 		},
@@ -30,14 +30,14 @@ module.exports = {
 		},
 		startAt: {
 			type: 'string',
-			allowNull: false,
-			required: true,
 			columnType: 'date',
+			required: true,
+			allowNull:false,
 		},
 		endAt: {
 			type: 'string',
-			allowNull: true,
 			columnType: 'date',
+			allowNull:true,
 		},
 		isCurrentlyWorking: {
 			type: 'boolean',
@@ -48,11 +48,21 @@ module.exports = {
 			type: 'string',
 			allowNull: true,
 		},
+
+		// Relation To Owner (User)
+		user: {
+			model: 'User'
+		}
 	},
 
-	user: {
-		model: 'user'
+
+	customToJSON : function() {
+		return _.assign(this, {
+			startAt: this.startAt ? new Date(this.startAt).toISOString().slice(0,10) : "",
+			endAt: this.endAt ? new Date(this.endAt).toISOString().slice(0,10) : "",
+		})
 	}
+
 
 };
 

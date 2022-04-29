@@ -37,6 +37,12 @@ module.exports = {
 			allowNull: true,
 			columnType: 'mediumText',
 		},
+
+		// Relation To Experience Collection
+		experience: {
+			collection: 'UserExperience',
+			via: 'user',
+		}
 	},
 
 	// Hash Password Before Create|Update
@@ -53,10 +59,6 @@ module.exports = {
 		return _.omit(this, ['password'])
 	},
 
-	experience: {
-		collection: 'user_experience',
-		via: 'user',
-	}
 
 
 };
