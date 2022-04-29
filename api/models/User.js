@@ -39,6 +39,7 @@ module.exports = {
 		},
 	},
 
+	// Hash Password Before Create|Update
 	beforeUpdate: (values, next) => {
 		CipherService.hashPassword(values)
 		next()
@@ -50,7 +51,13 @@ module.exports = {
 
 	customToJSON: function() {
 		return _.omit(this, ['password'])
+	},
+
+	experience: {
+		collection: 'user_experience',
+		via: 'user',
 	}
+
 
 };
 
